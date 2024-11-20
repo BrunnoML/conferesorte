@@ -1,4 +1,4 @@
-// Lista com os jogos (exemplo: substitua por sua lista de 20.000 jogos)
+/* Lista com os jogos (exemplo: substitua por sua lista de 20.000 jogos)
 const jogos = [
   [5, 12, 23, 34, 45, 50, 56, 59, 60],
   [10, 12, 15, 23, 34, 50, 55, 58, 60],
@@ -9,6 +9,26 @@ const jogos = [
   [1, 2, 3, 4, 5, 6, 19, 20, 21],
   // Adicione mais jogos...
 ];
+*/
+
+// Função para carregar o arquivo CSV
+async function carregarJogosCSV() {
+  const response = await fetch('jogos.csv');
+  const data = await response.text();
+
+  // Converter o CSV em uma lista de arrays
+  const linhas = data.split('\n').map(linha => 
+    linha.split(';').map(num => parseInt(num.trim()))
+  );
+
+  return linhas;
+}
+
+// Chamada para carregar os jogos ao iniciar
+let jogos = [];
+carregarJogosCSV().then(data => {
+  jogos = data;
+});
 
 // Função para buscar e destacar
 function buscarJogos() {
