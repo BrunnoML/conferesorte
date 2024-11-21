@@ -71,3 +71,9 @@ button:hover {
   background-color: #222;
   border-radius: 5px;
 }
+
+#total-quadras,
+#total-quinas {
+  font-weight: bold;
+  margin-top: 5px;
+}

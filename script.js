@@ -20028,7 +20028,7 @@ document.addEventListener("keydown", (event) => {
 // Dividir a lista colada em cada campo de dezena
 document.getElementById("paste-dezenas").addEventListener("input", (event) => {
   const input = event.target.value.trim(); // Pega o valor colado
-  const fields = document.querySelectorAll(".dezenas input");
+  const fields = document.querySelectorAll("input");
 
   // Divida os números por vírgula, espaço ou ambos
   const dezenas = input.split(/[\s,]+/).map(num => parseInt(num.trim())).filter(Boolean);
@@ -20064,11 +20064,15 @@ function atualizarResultados(quadras, quinas, senas, numerosDigitados) {
   const quadrasDiv = document.getElementById('quadras');
   const quinasDiv = document.getElementById('quinas');
   const senasDiv = document.getElementById('senas');
+  const totalQuadrasDiv = document.getElementById('total-quadras');
+  const totalQuinasDiv = document.getElementById('total-quinas');
 
   // Limpar os campos anteriores
   quadrasDiv.innerHTML = '';
   quinasDiv.innerHTML = '';
   senasDiv.innerHTML = '';
+  totalQuadrasDiv.textContent = 'Total de quadras: 0';
+  totalQuinasDiv.textContent = 'Total de quinas: 0';
 
   // Atualizar quadras
   quadras.forEach(jogo => {
@@ -20090,6 +20094,10 @@ function atualizarResultados(quadras, quinas, senas, numerosDigitados) {
     linha.innerHTML = formatarJogo(jogo, numerosDigitados);
     senasDiv.appendChild(linha);
   });
+
+  // Exibir totais
+  totalQuadrasDiv.textContent = `Total de quadras: ${quadras.length}`;
+  totalQuinasDiv.textContent = `Total de quinas: ${quinas.length}`;
 
   atualizarMensagem(quadras, quinas, senas);
 }
