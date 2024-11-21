@@ -20002,6 +20002,42 @@ const jogos = [
 [13, 15, 21, 36, 41, 50],
   // Adicione mais jogos...
 ];
+// Usar seta esquerda ou direita
+document.addEventListener("keydown", (event) => {
+  const fields = document.querySelectorAll(".dezenas input"); // Seleciona os campos das dezenas
+  let currentIndex = -1;
+
+  // Encontra o campo atualmente focado
+  fields.forEach((field, index) => {
+    if (document.activeElement === field) {
+      currentIndex = index;
+    }
+  });
+
+  if (currentIndex !== -1) {
+    if (event.key === "ArrowLeft" && currentIndex > 0) {
+      // Vai para o campo anterior
+      fields[currentIndex - 1].focus();
+    } else if (event.key === "ArrowRight" && currentIndex < fields.length - 1) {
+      // Vai para o próximo campo
+      fields[currentIndex + 1].focus();
+    }
+  }
+});
+
+// Dividir a lista colada em cada campo de dezena
+document.getElementById("paste-dezenas").addEventListener("input", (event) => {
+  const input = event.target.value.trim(); // Pega o valor colado
+  const fields = document.querySelectorAll(".dezenas input");
+
+  // Divida os números por vírgula, espaço ou ambos
+  const dezenas = input.split(/[\s,]+/).map(num => parseInt(num.trim())).filter(Boolean);
+
+  // Preenche os campos com as dezenas
+  fields.forEach((field, index) => {
+    field.value = dezenas[index] || ""; // Preenche ou limpa o campo
+  });
+});
 
 // Função para buscar e destacar
 function buscarJogos() {

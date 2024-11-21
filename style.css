@@ -6,6 +6,7 @@ body {
   text-align: center;
   padding: 20px;
 }
+
 h2 {
   font-size: 20px;
   margin-bottom: 20px;
@@ -22,6 +23,14 @@ input {
   margin: 10px 0;
   
 }
+
+#paste-dezenas {
+  width: 400px; /* Define a largura para 400px */
+  padding: 8px; /* Adiciona espaçamento interno para uma aparência melhor */
+  font-size: 16px; /* Ajusta o tamanho da fonte para harmonizar com o campo */
+  box-sizing: border-box; /* Garante que padding e borda não aumentem o tamanho total */
+}
+
 .results {
   margin-top: 40px;
   text-align: center;
