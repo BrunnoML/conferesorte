@@ -20113,7 +20113,7 @@ function formatarJogo(jogo, numerosDigitados) {
       ? `<span class="highlight">${numero}</span>`
       : numero
   ).join(', ');
-
+// Formatação número do jogo
   return `<span class="jogo-id">🎯 Jogo: ${jogo.id} 💰 Dezenas: </span> ${numerosFormatados}`;
 }
 
