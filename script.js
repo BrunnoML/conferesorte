@@ -20114,7 +20114,7 @@ function formatarJogo(jogo, numerosDigitados) {
       : numero
   ).join(', ');
 // Formatação número do jogo
-  return `<span class="jogo-id">🎯 Jogo: ${jogo.id} 💰 Dezenas: </span> ${numerosFormatados}`;
+  return `<span class="jogo-id">Jogo: ${jogo.id} Dezenas: </span> ${numerosFormatados}`;
 }
 
 // Função para atualizar a mensagem principal
