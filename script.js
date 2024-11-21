@@ -20004,7 +20004,7 @@ const jogos = [
 ];
 // Usar seta esquerda ou direita
 document.addEventListener("keydown", (event) => {
-  const fields = document.querySelectorAll(".dezenas input"); // Seleciona os campos das dezenas
+  const fields = document.querySelectorAll("input"); // Seleciona os campos das dezenas
   let currentIndex = -1;
 
   // Encontra o campo atualmente focado
