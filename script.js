@@ -20001,7 +20001,11 @@ const jogos = [
 [16, 26, 44, 45, 51, 54],
 [13, 15, 21, 36, 41, 50],
   // Adicione mais jogos...
-];
+].map((jogo, index) => ({
+  numeros: jogo,
+  id: Math.floor(index / 3), // Identificador calculado
+}));
+
 // Usar seta esquerda ou direita
 document.addEventListener("keydown", (event) => {
   const fields = document.querySelectorAll("input"); // Seleciona os campos das dezenas
@@ -20049,7 +20053,7 @@ function buscarJogos() {
   const senas = [];
 
   jogos.forEach(jogo => {
-    const acertos = numerosDigitados.filter(num => jogo.includes(num)).length;
+    const acertos = numerosDigitados.filter(num => jogo.numeros.includes(num)).length;
 
     if (acertos >= 4) quadras.push(jogo); // Adicionar todos os jogos com 4+ acertos no campo de quadras
     if (acertos >= 5) quinas.push(jogo); // Adicionar todos os jogos com 5+ acertos no campo de quinas
@@ -20104,11 +20108,13 @@ function atualizarResultados(quadras, quinas, senas, numerosDigitados) {
 
 // Função para formatar um jogo e destacar os números coincidentes
 function formatarJogo(jogo, numerosDigitados) {
-  return jogo.map(numero => {
-    return numerosDigitados.includes(numero)
+  const numerosFormatados = jogo.numeros.map(numero =>
+    numerosDigitados.includes(numero)
       ? `<span class="highlight">${numero}</span>`
-      : numero;
-  }).join(', ');
+      : numero
+  ).join(', ');
+
+  return `<span class="jogo-id">🎯 Jogo: ${jogo.id} 💰 Dezenas: </span> ${numerosFormatados}`;
 }
 
 // Função para atualizar a mensagem principal

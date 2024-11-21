@@ -77,3 +77,10 @@ button:hover {
   font-weight: bold;
   margin-top: 5px;
 }
+
+.jogo-id {
+  font-size: 1.4rem; /* Aumenta o tamanho da fonte */
+  font-weight: bold; /* Deixa o texto em negrito */
+  color: #007bff; /* Cor azul */
+  margin-right: 10px; /* Espaço após o ID */
+}
