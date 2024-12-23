@@ -18117,8 +18117,8 @@ function buscarJogos() {
   jogos.forEach(jogo => {
     const acertos = numerosDigitados.filter(num => jogo.numeros.includes(num)).length;
 
-    if (acertos >= 4) quadras.push(jogo); // Adicionar todos os jogos com 4+ acertos no campo de quadras
-    if (acertos >= 5) quinas.push(jogo); // Adicionar todos os jogos com 5+ acertos no campo de quinas
+    if (acertos == 4) quadras.push(jogo); // Adicionar todos os jogos com 4+ acertos no campo de quadras
+    if (acertos == 5) quinas.push(jogo); // Adicionar todos os jogos com 5+ acertos no campo de quinas
     if (acertos === 6) senas.push(jogo); // Adicionar jogos com 6 acertos no campo de senas
   });
 
