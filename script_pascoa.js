@@ -3528,8 +3528,8 @@ const jogos = [
   // Adicione mais jogos...
 ].map((jogo, index) => ({
   numeros: jogo,
-  id: Math.floor(index / 3), // Número do Volante
-  numero_jogo: Math.floor(index), // Nomero do Jogo
+  id: Math.floor((index / 3) + 1), // Número do Volante
+  numero_jogo: Math.floor(index + 1), // Nomero do Jogo
 }));
 
 // Usar seta esquerda ou direita
