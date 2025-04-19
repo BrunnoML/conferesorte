@@ -1,4 +1,3 @@
-// Lista com os jogos (exemplo: substitua por sua lista de 20.000 jogos)
 const jogos = [
     [2,8,21,23,37,48],
     [22,24,30,34,46,48],
@@ -3525,54 +3524,87 @@ const jogos = [
     [3,4,15,20,24,44],
     [2,3,7,15,34,48],
     [5,16,20,23,28,34],
-  // Adicione mais jogos...
 ].map((jogo, index) => ({
-  numeros: jogo,
-  id: Math.floor((index / 3) + 1), // Número do Volante
-  numero_jogo: Math.floor(index + 1), // Nomero do Jogo
+numeros: jogo,
+id: Math.floor((index / 3) + 1), // Número do Volante
+numero_jogo: Math.floor(index + 1), // Nomero do Jogo
 }));
 
-// Usar seta esquerda ou direita
-document.addEventListener("keydown", (event) => {
-  const fields = document.querySelectorAll("input"); // Seleciona os campos das dezenas
-  let currentIndex = -1;
+document.addEventListener('DOMContentLoaded', () => {
+console.log('DOM carregado, vinculando eventos...');
 
-  // Encontra o campo atualmente focado
+// Navegação com setas entre os campos de entrada
+document.addEventListener("keydown", (event) => {
+  const fields = document.querySelectorAll("input[type='number']");
+  let currentIndex = -1;
   fields.forEach((field, index) => {
     if (document.activeElement === field) {
       currentIndex = index;
     }
   });
-
   if (currentIndex !== -1) {
     if (event.key === "ArrowLeft" && currentIndex > 0) {
-      // Vai para o campo anterior
       fields[currentIndex - 1].focus();
     } else if (event.key === "ArrowRight" && currentIndex < fields.length - 1) {
-      // Vai para o próximo campo
       fields[currentIndex + 1].focus();
     }
   }
 });
 
-// Dividir a lista colada em cada campo de dezena
-document.getElementById("paste-dezenas").addEventListener("input", (event) => {
-  const input = event.target.value.trim(); // Pega o valor colado
-  const fields = document.querySelectorAll("input");
-
-  // Divida os números por vírgula, espaço ou ambos
-  const dezenas = input.split(/[\s,]+/).map(num => parseInt(num.trim())).filter(Boolean);
-
-  // Preenche os campos com as dezenas
-  fields.forEach((field, index) => {
-    field.value = dezenas[index] || ""; // Preenche ou limpa o campo
-  });
+// Adicionar eventos de input para todos os campos
+document.querySelectorAll("input[type='number']").forEach(input => {
+  input.addEventListener('input', buscarJogos);
 });
 
-// Função para buscar e destacar
+// Evento do botão Limpar
+const clearButton = document.getElementById('clear-button');
+if (clearButton) {
+  clearButton.addEventListener('click', () => {
+    console.log('Botão Limpar clicado');
+    limparCampos();
+  });
+} else {
+  console.warn("Botão com ID 'clear-button' não encontrado no DOM.");
+}
+
+// Evento do botão Listar Todos os Jogos
+const listAllGamesButton = document.getElementById('list-all-games-button');
+if (listAllGamesButton) {
+  listAllGamesButton.addEventListener('click', () => {
+    console.log('Botão Listar Todos os Jogos clicado');
+    listarTodosJogos();
+  });
+} else {
+  console.warn("Botão com ID 'list-all-games-button' não encontrado no DOM.");
+}
+});
+
 function buscarJogos() {
-  const inputs = Array.from(document.querySelectorAll('input'));
-  const numerosDigitados = inputs.map(input => parseInt(input.value)).filter(Boolean);
+  // Obter dezenas do Sorteio 1
+  const sorteio1Inputs = [
+    document.getElementById('sorteio1-number1'),
+    document.getElementById('sorteio1-number2'),
+    document.getElementById('sorteio1-number3'),
+    document.getElementById('sorteio1-number4'),
+    document.getElementById('sorteio1-number5'),
+    document.getElementById('sorteio1-number6')
+  ];
+  const numerosDigitados1 = sorteio1Inputs
+    .map(input => parseInt(input.value))
+    .filter(num => !isNaN(num));
+
+  // Obter dezenas do Sorteio 2
+  const sorteio2Inputs = [
+    document.getElementById('sorteio2-number1'),
+    document.getElementById('sorteio2-number2'),
+    document.getElementById('sorteio2-number3'),
+    document.getElementById('sorteio2-number4'),
+    document.getElementById('sorteio2-number5'),
+    document.getElementById('sorteio2-number6')
+  ];
+  const numerosDigitados2 = sorteio2Inputs
+    .map(input => parseInt(input.value))
+    .filter(num => !isNaN(num));
 
   const ternos = [];
   const quadras = [];
@@ -3580,19 +3612,39 @@ function buscarJogos() {
   const senas = [];
 
   jogos.forEach(jogo => {
-    const acertos = numerosDigitados.filter(num => jogo.numeros.includes(num)).length;
+    // Verificar Sorteio 1
+    if (numerosDigitados1.length === 6) {
+      const acertos1 = numerosDigitados1.filter(num => jogo.numeros.includes(num)).length;
+      if (acertos1 === 6) {
+        senas.push({ ...jogo, sorteio: 'Sorteio 1', dezenasSorteio: numerosDigitados1 });
+      } else if (acertos1 === 5) {
+        quinas.push({ ...jogo, sorteio: 'Sorteio 1', dezenasSorteio: numerosDigitados1 });
+      } else if (acertos1 === 4) {
+        quadras.push({ ...jogo, sorteio: 'Sorteio 1', dezenasSorteio: numerosDigitados1 });
+      } else if (acertos1 === 3) {
+        ternos.push({ ...jogo, sorteio: 'Sorteio 1', dezenasSorteio: numerosDigitados1 });
+      }
+    }
 
-    if (acertos >= 3) ternos.push(jogo); // Adicionar todos os jogos com 3+ acertos no campo de ternos
-    if (acertos >= 4) quadras.push(jogo); // Adicionar todos os jogos com 4+ acertos no campo de quadras
-    if (acertos >= 5) quinas.push(jogo); // Adicionar todos os jogos com 5+ acertos no campo de quinas
-    if (acertos === 6) senas.push(jogo); // Adicionar jogos com 6 acertos no campo de senas
+    // Verificar Sorteio 2
+    if (numerosDigitados2.length === 6) {
+      const acertos2 = numerosDigitados2.filter(num => jogo.numeros.includes(num)).length;
+      if (acertos2 === 6) {
+        senas.push({ ...jogo, sorteio: 'Sorteio 2', dezenasSorteio: numerosDigitados2 });
+      } else if (acertos2 === 5) {
+        quinas.push({ ...jogo, sorteio: 'Sorteio 2', dezenasSorteio: numerosDigitados2 });
+      } else if (acertos2 === 4) {
+        quadras.push({ ...jogo, sorteio: 'Sorteio 2', dezenasSorteio: numerosDigitados2 });
+      } else if (acertos2 === 3) {
+        ternos.push({ ...jogo, sorteio: 'Sorteio 2', dezenasSorteio: numerosDigitados2 });
+      }
+    }
   });
 
-  atualizarResultados(ternos, quadras, quinas, senas, numerosDigitados);
+  atualizarResultados(ternos, quadras, quinas, senas);
 }
 
-// Função para exibir os resultados separados
-function atualizarResultados(ternos, quadras, quinas, senas, numerosDigitados) {
+function atualizarResultados(ternos, quadras, quinas, senas) {
   const ternosDiv = document.getElementById('ternos');
   const quadrasDiv = document.getElementById('quadras');
   const quinasDiv = document.getElementById('quinas');
@@ -3601,65 +3653,57 @@ function atualizarResultados(ternos, quadras, quinas, senas, numerosDigitados) {
   const totalQuadrasDiv = document.getElementById('total-quadras');
   const totalQuinasDiv = document.getElementById('total-quinas');
 
-  // Limpar os campos anteriores
-  ternosDiv.innerHTML = '';
-  quadrasDiv.innerHTML = '';
-  quinasDiv.innerHTML = '';
-  senasDiv.innerHTML = '';
-  totalTernosDiv.textContent = 'Total de ternos: 0';
-  totalQuadrasDiv.textContent = 'Total de quadras: 0';
-  totalQuinasDiv.textContent = 'Total de quinas: 0';
+  if (ternosDiv) ternosDiv.innerHTML = '';
+  if (quadrasDiv) quadrasDiv.innerHTML = '';
+  if (quinasDiv) quinasDiv.innerHTML = '';
+  if (senasDiv) senasDiv.innerHTML = '';
+  if (totalTernosDiv) totalTernosDiv.textContent = 'Total de ternos: 0';
+  if (totalQuadrasDiv) totalQuadrasDiv.textContent = 'Total de quadras: 0';
+  if (totalQuinasDiv) totalQuinasDiv.textContent = 'Total de quinas: 0';
 
-  // Atualizar ternos
   ternos.forEach(jogo => {
     const linha = document.createElement('div');
-    linha.innerHTML = formatarJogo(jogo, numerosDigitados);
-    ternosDiv.appendChild(linha);
+    linha.innerHTML = formatarJogo(jogo, jogo.dezenasSorteio);
+    if (ternosDiv) ternosDiv.appendChild(linha);
   });
 
-  // Atualizar quadras
   quadras.forEach(jogo => {
     const linha = document.createElement('div');
-    linha.innerHTML = formatarJogo(jogo, numerosDigitados);
-    quadrasDiv.appendChild(linha);
+    linha.innerHTML = formatarJogo(jogo, jogo.dezenasSorteio);
+    if (quadrasDiv) quadrasDiv.appendChild(linha);
   });
 
-  // Atualizar quinas
   quinas.forEach(jogo => {
     const linha = document.createElement('div');
-    linha.innerHTML = formatarJogo(jogo, numerosDigitados);
-    quinasDiv.appendChild(linha);
+    linha.innerHTML = formatarJogo(jogo, jogo.dezenasSorteio);
+    if (quinasDiv) quinasDiv.appendChild(linha);
   });
 
-  // Atualizar senas
   senas.forEach(jogo => {
     const linha = document.createElement('div');
-    linha.innerHTML = formatarJogo(jogo, numerosDigitados);
-    senasDiv.appendChild(linha);
+    linha.innerHTML = formatarJogo(jogo, jogo.dezenasSorteio);
+    if (senasDiv) senasDiv.appendChild(linha);
   });
 
-  // Exibir totais
-  totalTernosDiv.textContent = `Total de ternos: ${ternos.length}`;
-  totalQuadrasDiv.textContent = `Total de quadras: ${quadras.length}`;
-  totalQuinasDiv.textContent = `Total de quinas: ${quinas.length}`;
+  if (totalTernosDiv) totalTernosDiv.textContent = `Total de ternos: ${ternos.length}`;
+  if (totalQuadrasDiv) totalQuadrasDiv.textContent = `Total de quadras: ${quadras.length}`;
+  if (totalQuinasDiv) totalQuinasDiv.textContent = `Total de quinas: ${quinas.length}`;
 
   atualizarMensagem(ternos, quadras, quinas, senas);
 }
 
-// Função para formatar um jogo e destacar os números coincidentes
 function formatarJogo(jogo, numerosDigitados) {
   const numerosFormatados = jogo.numeros.map(numero =>
     numerosDigitados.includes(numero)
       ? `<span class="highlight">${numero}</span>`
       : numero
   ).join(', ');
-// Formatação número do jogo
-  return `<span class="jogo-id">🎯 Jogo ${jogo.numero_jogo} no volante ${jogo.id} 💰 Dezenas: </span> ${numerosFormatados}`;
+  return `<span class="jogo-id">Jogo ${jogo.numero_jogo+1} no volante ${jogo.id+1}: </span> ${numerosFormatados} <span class="sorteio-mark">[${jogo.sorteio}]</span>`;
 }
 
-// Função para atualizar a mensagem principal
 function atualizarMensagem(ternos, quadras, quinas, senas) {
   const resultMessage = document.getElementById('result-message');
+  if (!resultMessage) return;
 
   if (senas.length > 0) {
     resultMessage.textContent = "Espetacular!!! Acertamos SENA!!!!!!";
@@ -3674,20 +3718,36 @@ function atualizarMensagem(ternos, quadras, quinas, senas) {
   }
 }
 
-// Função para limpar campos e resultados
 function limparCampos() {
-  document.querySelectorAll('input').forEach(input => input.value = '');
-  document.getElementById('result-message').textContent = "Calma que vai dar certo!!";
-  document.getElementById('ternos').innerHTML = '';
-  document.getElementById('quadras').innerHTML = '';
-  document.getElementById('quinas').innerHTML = '';
-  document.getElementById('senas').innerHTML = '';
+  console.log('Executando limparCampos');
+  document.querySelectorAll("input[type='number']").forEach(input => input.value = '');
+  const resultMessage = document.getElementById('result-message');
+  if (resultMessage) resultMessage.textContent = "Calma que vai dar certo!!";
+  const ternosDiv = document.getElementById('ternos');
+  if (ternosDiv) ternosDiv.innerHTML = '';
+  const quadrasDiv = document.getElementById('quadras');
+  if (quadrasDiv) quadrasDiv.innerHTML = '';
+  const quinasDiv = document.getElementById('quinas');
+  if (quinasDiv) quinasDiv.innerHTML = '';
+  const senasDiv = document.getElementById('senas');
+  if (senasDiv) senasDiv.innerHTML = '';
+  const allGamesDiv = document.getElementById('all-games');
+  if (allGamesDiv) allGamesDiv.innerHTML = '';
 }
 
-// Adicionar evento para cada campo de entrada
-document.querySelectorAll('input').forEach(input => {
-  input.addEventListener('input', buscarJogos);
-});
+function listarTodosJogos() {
+  console.log('Executando listarTodosJogos');
+  const allGamesDiv = document.getElementById('all-games');
+  if (!allGamesDiv) {
+    console.warn("Elemento com ID 'all-games' não encontrado no DOM.");
+    return;
+  }
 
-// Adicionar evento para o botão de limpar
-document.getElementById('clear-button').addEventListener('click', limparCampos);
+  allGamesDiv.innerHTML = '';
+
+  jogos.forEach(jogo => {
+    const linha = document.createElement('div');
+    linha.innerHTML = `<span class="jogo-id"> Jogo ${jogo.numero_jogo+1} no volante ${jogo.id+1}: </span> ${jogo.numeros.join(', ')}`;
+    allGamesDiv.appendChild(linha);
+  });
+}
