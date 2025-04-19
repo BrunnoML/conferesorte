@@ -3,49 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conferindo a Sorte</title>
-  <link rel="stylesheet" href="style_pascoa.css">
+  <title>Conferindo a Sorte - Dupla Sena</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Conferindo a Sorte</h1>
-    <h2>Digite as dezenas sorteadas em cada campo:</h2>
-    <div class="input-container dezenas">
-      <input type="number" id="number1" placeholder="0">
-      <input type="number" id="number2" placeholder="0">
-      <input type="number" id="number3" placeholder="0">
-      <input type="number" id="number4" placeholder="0">
-      <input type="number" id="number5" placeholder="0">
-      <input type="number" id="number6" placeholder="0">
+    <h1>Conferindo a Sorte - Dupla Sena</h1>
+    
+    <div class="sorteio-container">
+      <h2>Sorteio 1</h2>
+      <div class="input-container">
+        <input type="number" id="sorteio1-number1" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio1-number2" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio1-number3" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio1-number4" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio1-number5" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio1-number6" placeholder="0" min="1" max="50">
+      </div>
     </div>
-    <h2>Ou cole as seis dezenas:</h2>
-    <div>
-      <label for="paste-dezenas"></label>
-      <input id="paste-dezenas" type="text" placeholder="Ex.: 1, 2, 3, 4, 5, 6">
+
+    <div class="sorteio-container">
+      <h2>Sorteio 2</h2>
+      <div class="input-container">
+        <input type="number" id="sorteio2-number1" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio2-number2" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio2-number3" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio2-number4" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio2-number5" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio2-number6" placeholder="0" min="1" max="50">
+      </div>
     </div>
-    <button id="clear-button">Limpar</button>
+
+    <div class="button-container">
+      <button id="clear-button">Limpar</button>
+      <button id="list-all-games-button">Listar Todos os Jogos</button>
+    </div>
+
     <div id="result-message">Vai dar certo! Fé!!</div>
-    <h2>Abaixo será mostrado os jogos que possuem a combinação das dezenas:</h2>
+    <h2>Jogos com combinações das dezenas sorteadas:</h2>
     <div class="results" id="results"></div>
 
-    <!-- Novos campos para os resultados -->
     <div class="output-section">
-    <h3>Sena</h3>
-    <div id="senas"></div>
-    <h3>Quinas</h3>
-    <div id="total-quinas">Total de quinas: 0</div>
-    <div id="quinas"></div>
-    
-    <h3>Quadras</h3>
-    <div id="total-quadras">Total de quadras: 0</div>
-    <div id="quadras"></div>
-    
-    <h3>Ternos</h3>
-    <div id="total-ternos">Total de ternos: 0</div>
-    <div id="ternos"></div>
-    
+      <h3>Sena</h3>
+      <div id="senas"></div>
+      <h3>Quinas</h3>
+      <div id="total-quinas">Total de quinas: 0</div>
+      <div id="quinas"></div>
+      <h3>Quadras</h3>
+      <div id="total-quadras">Total de quadras: 0</div>
+      <div id="quadras"></div>
+      <h3>Ternos</h3>
+      <div id="total-ternos">Total de ternos: 0</div>
+      <div id="ternos"></div>
+      <h3>Todos os Jogos</h3>
+      <div id="all-games"></div>
     </div>
 
-  
-    <script src="script_pascoa.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
