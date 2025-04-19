@@ -3526,8 +3526,8 @@ const jogos = [
     [5,16,20,23,28,34],
 ].map((jogo, index) => ({
 numeros: jogo,
-id: Math.floor((index / 3) + 1), // Número do Volante
-numero_jogo: Math.floor(index + 1), // Nomero do Jogo
+id: Math.floor(index / 3),
+numero_jogo: Math.floor(index),
 }));
 
 document.addEventListener('DOMContentLoaded', () => {
