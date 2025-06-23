@@ -3,33 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conferindo a Sorte - Dupla Sena</title>
+  <title>Conferindo a Sorte - Quina</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Conferindo a Sorte - Dupla Sena</h1>
+    <h1>Conferindo a Sorte - Quina</h1>
     
     <div class="sorteio-container">
-      <h2>Sorteio 1</h2>
+      <h2>Sorteio</h2>
       <div class="input-container">
-        <input type="number" id="sorteio1-number1" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio1-number2" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio1-number3" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio1-number4" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio1-number5" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio1-number6" placeholder="0" min="1" max="50">
-      </div>
-    </div>
-
-    <div class="sorteio-container">
-      <h2>Sorteio 2</h2>
-      <div class="input-container">
-        <input type="number" id="sorteio2-number1" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio2-number2" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio2-number3" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio2-number4" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio2-number5" placeholder="0" min="1" max="50">
-        <input type="number" id="sorteio2-number6" placeholder="0" min="1" max="50">
+        <input type="number" id="sorteio-number1" placeholder="0" min="1" max="80">
+        <input type="number" id="sorteio-number2" placeholder="0" min="1" max="80">
+        <input type="number" id="sorteio-number3" placeholder="0" min="1" max="80">
+        <input type="number" id="sorteio-number4" placeholder="0" min="1" max="80">
+        <input type="number" id="sorteio-number5" placeholder="0" min="1" max="80">
       </div>
     </div>
 
@@ -43,10 +30,7 @@
     <div class="results" id="results"></div>
 
     <div class="output-section">
-      <h3>Sena</h3>
-      <div id="senas"></div>
-      <h3>Quinas</h3>
-      <div id="total-quinas">Total de quinas: 0</div>
+      <h3>Quina</h3>
       <div id="quinas"></div>
       <h3>Quadras</h3>
       <div id="total-quadras">Total de quadras: 0</div>
@@ -54,10 +38,14 @@
       <h3>Ternos</h3>
       <div id="total-ternos">Total de ternos: 0</div>
       <div id="ternos"></div>
+      <h3>Duques</h3>
+      <div id="total-duques">Total de duques: 0</div>
+      <div id="duques"></div>
       <h3>Todos os Jogos</h3>
       <div id="all-games"></div>
     </div>
 
+    <script src="jogos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
